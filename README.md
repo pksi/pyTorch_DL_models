@@ -1,32 +1,32 @@
-# 1. Convert training data from other data types to tensor
+# Convert training data from other data types to tensor
 ## Numpy array
 `X=torch.from_numpy(X).type(torch.float)`
 ## int
 `y=torch.tensor(y)`
 
-# 2. Put model, training and validation dataset (tensors) to GPU device
+# Put model, training and validation dataset (tensors) to GPU device
 ```
 device = 'cuda' if torch.cuda.is_available else 'cpu'
 model=model_class.to(device)
 X_train,y_train,X_test,y_test = X_train.to(device),y_train.to(device),X_test.to(device),y_test.to(device)
 ```
 
-# 3. Set manual seed
+# Set manual seed
 `torch.manual_seed(42)`
 
-# 4. Set train and evaluation modes of the model in the training loop and testing loop respectively
+# Set train and evaluation modes of the model in the training loop and testing loop respectively
 ```
 model.train()
 model.eval()
 ```
 
-# 5. Reduce the dimension of the ouptut tensor when calculating the loss
+# Reduce the dimension of the ouptut tensor when calculating the loss
 ```
 y_logits=model0(X_train).squeeze()
 loss = loss_fn(y_logits, y_train)
 ```
 
-# 6. Use logits to calculate the classification loss function
+# Use logits to calculate the classification loss function
 ## Binary classification
 ```
 loss_fn = nn.BCEWithLogitsLoss()
@@ -38,7 +38,7 @@ loss_fn = nn.CrossEntropyLoss()
 loss = loss_fn(y_logits, y_train)
 ```
 
-# 7. Use DataLoader to turn dataset to iterables of mini-batches
+# Use DataLoader to turn dataset to iterables of mini-batches
 The shape of dataloader is 4 dimensional, the first dimension is batch dimension
 ```
 train_dataloader = DataLoader(train_data, 
@@ -55,7 +55,7 @@ train_dataloader = DataLoader(train_data,
 for X, y in test_dataloader:
   print (len(X), len(y))
 ```
-# 8. model.parameters vs. model.parameters()
+# model.parameters vs. model.parameters()
 `model.parameters` returns the attributes of the model, `model.parameters()` is a method of model that returns an iterator over all the parameters of the model.
 `model.parameters` is used to inspect the hyperparameters of the model, such as number of hidden layers and number of neurons(hidden units) in each layer
 `model.parameters()` is used as a parameter in optimizer: 
@@ -75,10 +75,10 @@ model1.parameters
 model1.parameters()
 <generator object Module.parameters at 0x7ce39c2b14d0>
 ```
-# 9. model.parameters vs. model.state_dict
+# model.parameters vs. model.state_dict
 model.parameters is used to inspect the hyperparameters of the model, while model.state_dict is used to inspect the weights and bias
 
-# 10. nn.Flatten layer expects the input imaging data to be 4-dimensional ((N, C, H, W)
+# nn.Flatten layer expects the input imaging data to be 4-dimensional ((N, C, H, W)
 Two ways to turn 3D imaging data to 4D imaging data:
 1. Use DataLoader to turn imaging dataset to batches: DataLoader(dataset, batch_size=32, shuffle=True)
 2. Use unsqueeze(dim=0) to add batch dimention: image.unsqueeze(dim=0)
