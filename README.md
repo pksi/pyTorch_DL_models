@@ -78,7 +78,7 @@ model1.parameters()
 # model.parameters vs. model.state_dict
 model.parameters is used to inspect the hyperparameters of the model, while model.state_dict is used to inspect the weights and bias
 
-# nn.Flatten layer expects the input imaging data to be 4-dimensional ((N, C, H, W)
+# nn.Flatten layer expects the input imaging data to be 4-dimensional (N, C, H, W)
 Two ways to turn 3D imaging data to 4D imaging data:
 1. Use DataLoader to turn imaging dataset to batches: DataLoader(dataset, batch_size=32, shuffle=True)
 2. Use unsqueeze(dim=0) to add batch dimention: image.unsqueeze(dim=0)
