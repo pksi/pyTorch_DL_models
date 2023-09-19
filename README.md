@@ -82,3 +82,6 @@ model.parameters is used to inspect the hyperparameters of the model, while mode
 Two ways to turn 3D imaging data to 4D imaging data:
 1. Use DataLoader to turn imaging dataset to batches: DataLoader(dataset, batch_size=32, shuffle=True)
 2. Use unsqueeze(dim=0) to add batch dimention: image.unsqueeze(dim=0)
+
+# Output image size from Conv2d layer
+Output image size = (Input image size + padding x 2 - kernel size +1)/stride size
